@@ -35,3 +35,32 @@ def findPairs(self, nums: List[int], k: int) -> int:
                 pairs.append((num, num-k))
                 
     return len(pairs)
+
+
+def findPairs(self, nums: List[int], k: int) -> int:
+
+    """
+    99.3% faster    
+    85% less memory
+    """
+
+    if k < 0:  ###absolute cant be negative
+        return 0
+    
+
+    counter = collections.Counter(nums)
+    
+    if k is 0:
+        count = 0;
+        for key in counter:
+            if counter[key] > 1:
+                count +=1
+        return count
+    
+    """
+            ##for each (a,b) pair the abs(a-b) = k
+            -> |a-b| = k
+            -> a-b = +-k 
+            -> a = k+b
+    """
+    return sum(k+i in counter for i in counter) 
